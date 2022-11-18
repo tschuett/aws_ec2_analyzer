@@ -21,7 +21,8 @@ pub mod ec2;
 /// the AWS pricing client
 pub mod pricing;
 
-mod sql;
+/// store ondemand prices in sqlite
+pub mod sql;
 
 /// rendering for gnuplot
 pub mod render {
@@ -73,8 +74,8 @@ pub mod print_spot_region {
 /// print information about EC2 instances
 pub mod print_instances;
 
-/// analyze efas
-pub mod analyze_efas;
+///// analyze efas
+//pub mod analyze_efas;
 
 /// print ondemand prices for the different regions
 pub mod print_ondemand_region {
@@ -89,15 +90,15 @@ mod instance;
 mod printer;
 mod region;
 
-fn is_done(token: &Option<String>) -> bool {
-    token.as_ref().map_or(true, |v| v.is_empty())
-}
-
-fn get_token(token: &Option<String>) -> Option<String> {
-    token
-        .as_ref()
-        .and_then(|tok: &String| if tok.is_empty() { None } else { token.clone() })
-}
+//fn is_done(token: &Option<String>) -> bool {
+//    token.as_ref().map_or(true, |v| v.is_empty())
+//}
+//
+//fn get_token(token: &Option<String>) -> Option<String> {
+//    token
+//        .as_ref()
+//        .and_then(|tok: &String| if tok.is_empty() { None } else { token.clone() })
+//}
 
 //macro_rules! const_assert {
 //    ($($tt:tt)*) => {
@@ -311,34 +312,34 @@ mod tests {
     }
 }
 
-use aws_sdk_ec2::error::DescribeInstanceTypeOfferingsError;
-use aws_sdk_ec2::model::LocationType;
+//use aws_sdk_ec2::error::DescribeInstanceTypeOfferingsError;
+//use aws_sdk_ec2::model::LocationType;
 
-pub async fn describe_instance_type_offerings(
-) -> Result<(), SdkError<DescribeInstanceTypeOfferingsError>> {
-    let shared_config = get_region_config("eu-north-1").await;
-    let client = aws_sdk_ec2::Client::new(&shared_config);
-
-    let filter = Filter::builder()
-        .name("instance-type")
-        .values("hpc6a.48xlarge")
-        .build();
-    let values = client
-        .describe_instance_type_offerings()
-        .location_type(LocationType::AvailabilityZone)
-        .filters(filter)
-        .into_paginator()
-        .items()
-        .send()
-        .collect::<Result<Vec<_>, _>>()
-        .await?;
-
-    for value in values {
-        println!("{}", value.location().unwrap());
-    }
-
-    Ok(())
-}
+//pub async fn describe_instance_type_offerings(
+//) -> Result<(), SdkError<DescribeInstanceTypeOfferingsError>> {
+//    let shared_config = get_region_config("eu-north-1").await;
+//    let client = aws_sdk_ec2::Client::new(&shared_config);
+//
+//    let filter = Filter::builder()
+//        .name("instance-type")
+//        .values("hpc6a.48xlarge")
+//        .build();
+//    let values = client
+//        .describe_instance_type_offerings()
+//        .location_type(LocationType::AvailabilityZone)
+//        .filters(filter)
+//        .into_paginator()
+//        .items()
+//        .send()
+//        .collect::<Result<Vec<_>, _>>()
+//        .await?;
+//
+//    for value in values {
+//        println!("{}", value.location().unwrap());
+//    }
+//
+//    Ok(())
+//}
 
 // aws ec2 describe-instance-type-offerings \
 //--location-type availability-zone \

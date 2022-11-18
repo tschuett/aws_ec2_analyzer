@@ -4,55 +4,61 @@ use aws_ec2_analyzer::{ec2::Ec2, get_region_config, pricing::Pricing};
 //use aws_sdk_ec2::model::InstanceType;
 //use aws_ec2_spot::print::print_spot_placement::print_spot_placement;
 //use aws_ec2_spot::print_spot_region::print_spot_regions::print_spot_regions;
-use aws_ec2_analyzer::describe_instance_type_offerings;
+//use aws_ec2_analyzer::describe_instance_type_offerings;
 use aws_sdk_ec2::model::InstanceType;
 
-const REGIONS: &[&str] = &["us-east-1", "us-east-2", "us-west-2", "eu-west-1", "eu-north-1"];
+const REGIONS: &[&str] = &[
+    "us-east-1",
+    "us-east-2",
+    "us-west-2",
+    "eu-west-1",
+    "eu-north-1",
+];
+
+const INSTANCE_TYPES: &[InstanceType] = &[
+    //InstanceType::C524xlarge,
+    InstanceType::C5n18xlarge,
+    InstanceType::C6i32xlarge,
+    InstanceType::C6a48xlarge,
+    InstanceType::C6g16xlarge,
+    InstanceType::C6gn16xlarge,
+    InstanceType::C7g16xlarge,
+    InstanceType::Hpc6a48xlarge,
+    //InstanceType::M524xlarge,
+    //InstanceType::M5n24xlarge,
+    InstanceType::M6i32xlarge,
+    InstanceType::M6a48xlarge,
+    InstanceType::M6g16xlarge,
+    // accelerator
+    InstanceType::G548xlarge,
+    //InstanceType::G54xlarge,
+    //InstanceType::P4de24xlarge,
+    //InstanceType::P4d24xlarge,
+    //InstanceType::Inf124xlarge,
+    //InstanceType::P3dn24xlarge,
+    //InstanceType::G4dnMetal,
+    InstanceType::C7g4xlarge,
+    // memory
+    //InstanceType::X2iedn32xlarge,
+    //InstanceType::R6i32xlarge,
+    //nstanceType::X2idn32xlarge,
+    //InstanceType::R6g16xlarge,
+    //InstanceType::R5b24xlarge,
+    //InstanceType::X2gd16xlarge,
+    //nstanceType::R5b24xlarge,
+    //InstanceType::U12tb1112xlarge,
+    //InstanceType::U24tb1Metal,
+    //InstanceType::R6a48xlarge,
+    // storage
+    //InstanceType::Im4gn16xlarge,
+    //InstanceType::I3en24xlarge,
+    //InstanceType::I4i32xlarge,
+    //InstanceType::Unknown("trn1.32xlarge".to_string()),
+];
 
 #[tokio::main(flavor = "current_thread")]
 async fn main() -> Result<()> {
     tracing_subscriber::fmt::init();
-
-    const INSTANCE_TYPES: &[InstanceType] = &[
-        //InstanceType::C524xlarge,
-        InstanceType::C5n18xlarge,
-        InstanceType::C6i32xlarge,
-        InstanceType::C6a48xlarge,
-        InstanceType::C6g16xlarge,
-        InstanceType::C6gn16xlarge,
-        InstanceType::C7g16xlarge,
-        InstanceType::Hpc6a48xlarge,
-        //InstanceType::M524xlarge,
-        //InstanceType::M5n24xlarge,
-        InstanceType::M6i32xlarge,
-        InstanceType::M6a48xlarge,
-        InstanceType::M6g16xlarge,
-        // accelerator
-        InstanceType::G548xlarge,
-        //InstanceType::G54xlarge,
-        //InstanceType::P4de24xlarge,
-        //InstanceType::P4d24xlarge,
-        //InstanceType::Inf124xlarge,
-        //InstanceType::P3dn24xlarge,
-        //InstanceType::G4dnMetal,
-        InstanceType::C7g4xlarge,
-        // memory
-        //InstanceType::X2iedn32xlarge,
-        //InstanceType::R6i32xlarge,
-        //nstanceType::X2idn32xlarge,
-        //InstanceType::R6g16xlarge,
-        //InstanceType::R5b24xlarge,
-        //InstanceType::X2gd16xlarge,
-        //nstanceType::R5b24xlarge,
-        //InstanceType::U12tb1112xlarge,
-        //InstanceType::U24tb1Metal,
-        //InstanceType::R6a48xlarge,
-        // storage
-        //InstanceType::Im4gn16xlarge,
-        //InstanceType::I3en24xlarge,
-        //InstanceType::I4i32xlarge,
-        //InstanceType::Unknown("trn1.32xlarge".to_string()),
-    ];
 
     let shared_config = aws_config::load_from_env().await;
 
@@ -63,64 +69,15 @@ async fn main() -> Result<()> {
     let pricing_config = get_region_config("us-east-1").await;
     let pricing = Pricing::new(pricing_config);
 
-    //let _efa_instances = ec2.get_instance_types_efa().await?;
-
-    let _foo = InstanceType::Hpc6a48xlarge;
-
-    // AssumeRoleProviderBuilder
-
-    //println!("{:?}", efa_instances);
-
-    //    aws_ec2_analyzer::analyze_efas::analyze_efas(&ec2_client).await?;
-    //"m5zn.12xlarge",
-    //       "m5n.24xlarge",
-    let _spot_instances = vec![
-        InstanceType::C6i32xlarge,
-        InstanceType::C6gn16xlarge,
-        InstanceType::C5n18xlarge,
-        InstanceType::G548xlarge,
-        InstanceType::C6a48xlarge,
-    ];
-
-    //  use aws_ec2_analyzer::render::render_spot_region::render_spot_region;
-
-    //    render_spot_region(&pricing, &spot_instances, "eu-central-1", "efa").await?;
-    //print_ondemand_regions(&pricing, &ec2, "c6g.16xlarge").await?;
-    //print_reservation_regions(&pricing, &ec2, "c6g.16xlarge").await?;
-
-    let _instances = vec![
-        "m5.2xlarge".to_string(),
-        "m5.4xlarge".to_string(),
-        "m5.xlarge".to_string(),
-    ];
-
-    //aws_ec2_analyzer::print::print_get_instance_types::print_instance_type().await?;
-
-    // print_ondemand_region::print_ondemand_regions::print_ondemand_regions(
-    //     &pricing,
-    //     &ec2,
-    //     &[
-    //         "m6i.32xlarge",
-    //         "c6i.32xlarge",
-    //         "m6a.48xlarge",
-    //         "g5.48xlarge",
-    //         "hpc6a.48xlarge",
-    //         "m5.24xlarge",
-    //     ],
-    // )
-    // .await?;
-    //aws_ec2_analyzer::vpc_endpoints::main::main().await?;
-
-    aws_ec2_analyzer::print_spot_region::print_spot_regions::print_spot_regions(&ec2, &pricing, INSTANCE_TYPES, REGIONS)
-        .await?;
+    aws_ec2_analyzer::print_spot_region::print_spot_regions::print_spot_regions(
+        &ec2,
+        &pricing,
+        INSTANCE_TYPES,
+        REGIONS,
+    )
+    .await?;
 
     aws_ec2_analyzer::print_instances::print_instances(INSTANCE_TYPES).await?;
-
-    //describe_instance_type_offerings().await?;
-
-    //print_spot_placement(&instances, 10).await?;
-
-    //print_instance_type().await?;
 
     //print_spot_regions(&ec2, "c6gn.16xlarge").await?;
     //println!();
@@ -144,15 +101,6 @@ async fn main() -> Result<()> {
     //    &["g5.48xlarge", "g5.24xlarge", "g5.16xlarge", "g5.4xlarge"],
     //)
     //.await?;
-
-    //let ec2_client = aws_sdk_ec2::Client::new(&shared_config);
-
-    //print_images(&ec2_client).await?;
-
-    //print_filtered_instances(&ec2, &ec2_client).await?;
-    //print_spot_regions(&ec2, "c6g.2xlarge").await?;
-    //p4d.24xlarge
-    //m6i.32xlarge
 
     //render_spot_region(
     //    &ec2,
