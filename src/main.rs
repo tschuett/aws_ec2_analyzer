@@ -15,50 +15,58 @@ const REGIONS: &[&str] = &[
     "eu-north-1",
 ];
 
-const INSTANCE_TYPES: &[InstanceType] = &[
-    //InstanceType::C524xlarge,
-    InstanceType::C5n18xlarge,
-    InstanceType::C6i32xlarge,
-    InstanceType::C6a48xlarge,
-    InstanceType::C6g16xlarge,
-    InstanceType::C6gn16xlarge,
-    InstanceType::C7g16xlarge,
-    InstanceType::Hpc6a48xlarge,
-    //InstanceType::M524xlarge,
-    //InstanceType::M5n24xlarge,
-    InstanceType::M6i32xlarge,
-    InstanceType::M6a48xlarge,
-    InstanceType::M6g16xlarge,
-    // accelerator
-    InstanceType::G548xlarge,
-    //InstanceType::G54xlarge,
-    //InstanceType::P4de24xlarge,
-    //InstanceType::P4d24xlarge,
-    //InstanceType::Inf124xlarge,
-    //InstanceType::P3dn24xlarge,
-    //InstanceType::G4dnMetal,
-    InstanceType::C7g4xlarge,
-    // memory
-    //InstanceType::X2iedn32xlarge,
-    //InstanceType::R6i32xlarge,
-    //nstanceType::X2idn32xlarge,
-    //InstanceType::R6g16xlarge,
-    //InstanceType::R5b24xlarge,
-    //InstanceType::X2gd16xlarge,
-    //nstanceType::R5b24xlarge,
-    //InstanceType::U12tb1112xlarge,
-    //InstanceType::U24tb1Metal,
-    //InstanceType::R6a48xlarge,
-    // storage
-    //InstanceType::Im4gn16xlarge,
-    //InstanceType::I3en24xlarge,
-    //InstanceType::I4i32xlarge,
-    //InstanceType::Unknown("trn1.32xlarge".to_string()),
-];
-
 #[tokio::main(flavor = "current_thread")]
 async fn main() -> Result<()> {
     tracing_subscriber::fmt::init();
+
+    let INSTANCE_TYPES: &[InstanceType] = &[
+        //InstanceType::C524xlarge,
+        InstanceType::C5n18xlarge,
+        InstanceType::C6i32xlarge,
+        InstanceType::C6a48xlarge,
+        InstanceType::C6g16xlarge,
+        InstanceType::C6gn16xlarge,
+        InstanceType::C7g16xlarge,
+        InstanceType::Hpc6a48xlarge,
+        //InstanceType::M524xlarge,
+        //InstanceType::M5n24xlarge,
+        InstanceType::M6i32xlarge,
+        InstanceType::M6a48xlarge,
+        InstanceType::M6g16xlarge,
+        // accelerator
+        InstanceType::G548xlarge,
+        //        InstanceType::C5Metal,
+        //        InstanceType::C6iMetal,
+        //        InstanceType::C6aMetal,
+        //        InstanceType::M5znMetal,
+        //        InstanceType::C5nMetal,
+        //InstanceType::G54xlarge,
+        //InstanceType::P4de24xlarge,
+        //InstanceType::P4d24xlarge,
+        //InstanceType::Inf124xlarge,
+        //InstanceType::P3dn24xlarge,
+        //InstanceType::G4ad16xlarge,
+        //InstanceType::G4dnMetal,
+        //InstanceType::G5gMetal,
+        //InstanceType::C7g4xlarge,
+        // memory
+        //InstanceType::X2iedn32xlarge,
+        //InstanceType::R6i32xlarge,
+        //nstanceType::X2idn32xlarge,
+        //InstanceType::R6g16xlarge,
+        //InstanceType::R5b24xlarge,
+        //InstanceType::X2gd16xlarge,
+        //nstanceType::R5b24xlarge,
+        //InstanceType::U12tb1112xlarge,
+        //InstanceType::U24tb1Metal,
+        //InstanceType::R6a48xlarge,
+        // storage
+        //InstanceType::Im4gn16xlarge,
+        //InstanceType::I3en24xlarge,
+        //InstanceType::I4i32xlarge,
+        //InstanceType::Unknown("trn1.32xlarge".to_string()),
+        InstanceType::Unknown("c6in.32xlarge".to_string()),
+    ];
 
     let shared_config = aws_config::load_from_env().await;
 

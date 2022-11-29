@@ -74,9 +74,6 @@ pub mod print_spot_region {
 /// print information about EC2 instances
 pub mod print_instances;
 
-///// analyze efas
-//pub mod analyze_efas;
-
 /// print ondemand prices for the different regions
 pub mod print_ondemand_region {
 
