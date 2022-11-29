@@ -21,41 +21,6 @@ pub mod ec2;
 /// the AWS pricing client
 pub mod pricing;
 
-/// store ondemand prices in sqlite
-pub mod sql;
-
-/// rendering for gnuplot
-pub mod render {
-    //mod render_ondemand_region;
-    /// renders spot prices
-    pub mod render_spot_region;
-    mod render_spot_zone;
-}
-
-/// printing AWS EC2 prices to stdout
-pub mod print {
-    /// print ondemand prices for the different regions
-    pub mod print_ondemand_regions;
-
-    /// print reservation prices for the different regions
-    pub mod print_reservation_regions;
-
-    /// print spot prices for the different regions
-    //pub mod print_spot_regions;
-
-    /// prints spot placement scores
-    pub mod print_spot_placement;
-
-    /// prints attribute-based instances
-    pub mod print_get_instance_types;
-
-    /// prints instances filtered by some condition
-    pub mod print_filtered_instances;
-
-    /// print insights about images
-    pub mod print_images;
-}
-
 /// print spot prices for the different regions
 pub mod print_spot_region {
 
@@ -74,41 +39,14 @@ pub mod print_spot_region {
 /// print information about EC2 instances
 pub mod print_instances;
 
-/// print ondemand prices for the different regions
-pub mod print_ondemand_region {
-
-    /// print ondemand prices for the different regions
-    pub mod print_ondemand_regions;
-}
-
 mod availability_zone;
 mod instance;
-
-mod printer;
-mod region;
-
-//fn is_done(token: &Option<String>) -> bool {
-//    token.as_ref().map_or(true, |v| v.is_empty())
-//}
-//
-//fn get_token(token: &Option<String>) -> Option<String> {
-//    token
-//        .as_ref()
-//        .and_then(|tok: &String| if tok.is_empty() { None } else { token.clone() })
-//}
-
-//macro_rules! const_assert {
-//    ($($tt:tt)*) => {
-//        const _: () = assert!($($tt)*);
-//    }
-//}
 
 use aws_sdk_ec2::{
     error::DescribeInstanceTypesError,
     model::{InstanceType, InstanceTypeInfo},
     types::SdkError,
 };
-//use pretty_assertions::assert_eq;
 
 async fn describe_instance(
     client: &aws_sdk_ec2::Client,
