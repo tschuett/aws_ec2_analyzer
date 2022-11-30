@@ -21,7 +21,10 @@ impl Printer {
         favorite_regions: &[&str],
     ) -> Self {
         let is = instances.iter().map(|s| s.to_string()).collect::<Vec<_>>();
-        let fav_regions = favorite_regions.iter().map(|s| s.to_string()).collect::<Vec<_>>();
+        let fav_regions = favorite_regions
+            .iter()
+            .map(|s| s.to_string())
+            .collect::<Vec<_>>();
         Self {
             regions: regions.to_vec(),
             instances: is,
@@ -72,7 +75,7 @@ impl Printer {
             "|{}|",
             get_string_with_len_and_padding(
                 "-",
-                self.region_width + 2 + (self.instance_width + 4) * self.instances.len(),
+                self.region_width + 2 + (self.instance_width + 3) * self.instances.len(),
                 '-',
             )
         );
@@ -81,7 +84,7 @@ impl Printer {
     fn print_instance_names(&self) {
         print!("| {} |", get_string_with_len("", self.region_width));
         for instance in &self.instances {
-            print!(" {} |", get_string_with_len(instance, self.instance_width + 1));
+            print!(" {} |", get_string_with_len(instance, self.instance_width));
         }
         println!();
     }
@@ -91,7 +94,10 @@ impl Printer {
             if region.is_empty() {
                 continue;
             }
-            print!("| {} |", get_string_with_len(&region.get_region(), self.region_width));
+            print!(
+                "| {} |",
+                get_string_with_len(&region.get_region(), self.region_width)
+            );
             self.print_instances(region);
             println!();
         }
@@ -107,7 +113,7 @@ impl Printer {
                 );
             } else {
                 // no instance found
-                print!(" {} |", get_string_with_len("", self.instance_width + 1));
+                print!(" {} |", get_string_with_len("", self.instance_width));
             }
         }
     }
@@ -115,9 +121,9 @@ impl Printer {
     fn print_price_changes(&self) {
         print!("| {} |", get_string_with_len("", self.region_width));
         for change in &self.price_changes {
-            print!("  {} |", get_f64_with_len(*change, self.instance_width))
+            print!("  {} |", get_f64_with_len(*change, self.instance_width - 1))
         }
-        print!(" {} |", get_string_with_len("", self.instance_width + 1));
+        print!(" {} |", get_string_with_len("", self.instance_width));
         println!();
     }
 }

@@ -66,6 +66,10 @@ async fn main() -> Result<()> {
         //InstanceType::I4i32xlarge,
         //InstanceType::Unknown("trn1.32xlarge".to_string()),
         InstanceType::Unknown("c6in.32xlarge".to_string()),
+        InstanceType::Unknown("hpc6id.32xlarge".to_string()),
+        InstanceType::Unknown("c7gn.16xlarge".to_string()),
+        InstanceType::Unknown("r7iz.32xlarge".to_string()),
+        InstanceType::Unknown("hpc7g.16xlarge".to_string()),
     ];
 
     let shared_config = aws_config::load_from_env().await;
