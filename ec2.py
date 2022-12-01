@@ -27,6 +27,7 @@ def describe_instance(instance: str) -> Dict:
             return result
         except botocore.exceptions.ClientError as error:
             continue
+    print(f"{instance} not found")
     return dict()
 
 
@@ -43,7 +44,8 @@ def print_instance(instance_type: str):
 
 def main() -> int:
     """Invoke The main function."""
-    for instance_type in ["c6gn.16xlarge", "hpc6id.32xlarge"]:
+    for instance_type in ["c6gn.16xlarge", "hpc6id.32xlarge", "c7gn.16xlarge",
+                          "r7iz.32xlarge", "hpc7g.16xlarge"]:
         print_instance(instance_type)
 
     return 0
