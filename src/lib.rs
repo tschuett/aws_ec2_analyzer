@@ -207,11 +207,11 @@ fn get_string_network_and_len(s: &str, dot: usize, len: usize) -> String {
     }
 }
 
-fn get_bool_with_len(b: bool, len: usize) -> String {
-    let s = format!("{0:.5}", b);
-
-    get_string_with_len_and_padding(&s, len, ' ')
-}
+//fn get_bool_with_len(b: bool, len: usize) -> String {
+//    let s = format!("{0:.5}", b);
+//
+//    get_string_with_len_and_padding(&s, len, ' ')
+//}
 
 fn get_string_with_dot_and_len(s: &str, dot: usize, len: usize) -> String {
     match s.find('.') {

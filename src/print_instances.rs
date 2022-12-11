@@ -1,5 +1,4 @@
 use crate::describe_instance;
-use crate::get_bool_with_len;
 use crate::get_integer_with_len;
 use crate::get_region_config;
 use crate::get_string_network_and_len;
@@ -10,7 +9,16 @@ use anyhow::Result;
 use aws_sdk_ec2::model::ArchitectureType;
 use aws_sdk_ec2::model::InstanceType;
 use aws_sdk_ec2::model::InstanceTypeInfo;
+use aws_sdk_ec2::model::NetworkInfo;
 use std::cmp::Ordering;
+
+fn get_nr_of_efas(info: &NetworkInfo) -> i32 {
+    if let Some(efa_info) = info.efa_info() {
+        return efa_info.maximum_efa_interfaces().unwrap();
+    } else {
+        return 0;
+    }
+}
 
 fn get_architecture(archs: &[ArchitectureType]) -> String {
     for arch in archs {
@@ -77,11 +85,11 @@ impl InstanceStorage {
 
 struct Network {
     network_performance: String,
-    efa: bool,
+    efa: i32,
 }
 
 impl Network {
-    fn new(network_performance: &str, efa: bool) -> Self {
+    fn new(network_performance: &str, efa: i32) -> Self {
         Self {
             network_performance: network_performance.to_string(),
             efa,
@@ -116,7 +124,13 @@ struct Instance {
 }
 
 impl Instance {
-    fn new(cpu: Cpu, network: Network, ebs: i32, gpus: &[Gpu], instance_storage: InstanceStorage) -> Self {
+    fn new(
+        cpu: Cpu,
+        network: Network,
+        ebs: i32,
+        gpus: &[Gpu],
+        instance_storage: InstanceStorage,
+    ) -> Self {
         Self {
             cpu,
             network,
@@ -146,7 +160,7 @@ impl Instance {
         self.network.network_performance.clone()
     }
 
-    fn efa_supported(&self) -> bool {
+    fn get_efas(&self) -> i32 {
         self.network.efa
     }
 
@@ -201,7 +215,12 @@ impl PartialEq for Instance {
 impl Eq for Instance {}
 
 fn get_instance(info: &InstanceTypeInfo, instance: &InstanceType) -> Instance {
-    let arch = get_architecture(info.processor_info().unwrap().supported_architectures().unwrap());
+    let arch = get_architecture(
+        info.processor_info()
+            .unwrap()
+            .supported_architectures()
+            .unwrap(),
+    );
     let mut gpu_vec = Vec::new();
     if let Some(gpu_info) = info.gpu_info() {
         if let Some(gpus) = gpu_info.gpus() {
@@ -232,7 +251,7 @@ fn get_instance(info: &InstanceTypeInfo, instance: &InstanceType) -> Instance {
 
     let network = Network::new(
         info.network_info().unwrap().network_performance().unwrap(),
-        info.network_info().unwrap().efa_supported().unwrap(),
+        get_nr_of_efas(info.network_info().unwrap()),
     );
 
     Instance::new(
@@ -326,7 +345,7 @@ fn print(instances: &[Instance]) {
             "{} | ",
             get_string_network_and_len(&instance.network_performance(), 10, 20)
         );
-        print!("{} | ", get_bool_with_len(instance.efa_supported(), 8));
+        print!("{} | ", get_integer_with_len(instance.get_efas(), 8));
         print!("{} | ", get_integer_with_len(instance.ebs(), 8));
 
         if instance.gpu_len() > 0 {
