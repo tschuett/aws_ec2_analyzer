@@ -67,11 +67,12 @@ async fn main() -> Result<()> {
         //InstanceType::Unknown("inf2.48xlarge".to_string()),
         //InstanceType::Unknown("inf1.24xlarge".to_string()),
         //InstanceType::Inf124xlarge,
-        InstanceType::Unknown("c6in.32xlarge".to_string()),
-        InstanceType::Unknown("hpc6id.32xlarge".to_string()),
-        InstanceType::Unknown("c7gn.16xlarge".to_string()),
-        InstanceType::Unknown("r7iz.32xlarge".to_string()),
-        InstanceType::Unknown("hpc7g.16xlarge".to_string()),
+        //InstanceType::C6in32xlarge,
+        InstanceType::from("c6in.32xlarge"),
+        InstanceType::from("hpc6id.32xlarge"),
+        InstanceType::from("c7gn.16xlarge"),
+        InstanceType::from("r7iz.32xlarge"),
+        InstanceType::from("hpc7g.16xlarge"),
     ];
 
     let shared_config = aws_config::load_from_env().await;

@@ -41,7 +41,7 @@ mod regions {
         if let Some((_, r2)) = REGIONS.iter().find(|(r1, _)| *r1 == region) {
             return r2.to_string();
         }
-        panic!("unknown region {}", region);
+        panic!("unknown region {region}");
     }
 }
 
@@ -58,7 +58,9 @@ impl Pricing {
     }
 
     /// get all regions in AWS Pricing convention
-    pub async fn get_regions(&self) -> std::result::Result<Vec<String>, SdkError<GetAttributeValuesError>> {
+    pub async fn get_regions(
+        &self,
+    ) -> std::result::Result<Vec<String>, SdkError<GetAttributeValuesError>> {
         let values = self
             .0
             .get_attribute_values()
@@ -144,7 +146,13 @@ impl Pricing {
         return Ok(value.strip_prefix('\"').unwrap().parse::<f64>()?);
     }
 
-    fn get_common_filters(&self, instance: &str, region: &str, capacity_status: &str, tenancy: &str) -> Vec<Filter> {
+    fn get_common_filters(
+        &self,
+        instance: &str,
+        region: &str,
+        capacity_status: &str,
+        tenancy: &str,
+    ) -> Vec<Filter> {
         let location = region2region(region);
         vec![
             Filter::builder()
@@ -342,9 +350,9 @@ impl Pricing {
             .collect::<Vec<_>>();
 
         if kvs.len() != 2 {
-            println!("v = {}", v);
-            println!("kv = {:?}", kv);
-            println!("kvs = {:?}", kvs);
+            println!("v = {v}");
+            println!("kv = {kv:?}");
+            println!("kvs = {kvs:?}");
             println!("kvs.len() = {}", kvs.len());
             return Err(anyhow!("not found: price"));
         }

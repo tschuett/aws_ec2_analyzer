@@ -152,14 +152,14 @@ fn get_string_with_len(s: &str, len: usize) -> String {
 }
 
 fn get_f64_with_len(float: f64, len: usize) -> String {
-    let s = format!("{0:.5}", float);
+    let s = format!("{float:.5}");
 
     get_string_with_len_and_padding(&s, len, ' ')
 }
 
 fn get_option_f64_with_len(float: Option<f64>, len: usize) -> String {
     if let Some(f) = float {
-        let s = format!("{0:.5}", f);
+        let s = format!("{f:.5}");
 
         return get_string_with_len_and_padding(&s, len, ' ');
     }
@@ -170,7 +170,7 @@ use num_traits::PrimInt;
 use std::fmt::Display;
 
 fn get_integer_with_len<T: Display + PrimInt>(int: T, len: usize) -> String {
-    let s = format!("{0:.5}", int);
+    let s = format!("{int:.5}");
 
     get_string_with_len_and_padding(&s, len, ' ')
 }
@@ -197,10 +197,10 @@ fn get_string_network_and_len(s: &str, dot: usize, len: usize) -> String {
     match s.find('G') {
         Some(offset) => {
             if offset > dot {
-                println!("{} {} {} {}", s, dot, len, offset);
+                println!("{s} {dot} {len} {offset}");
             }
             let pre_padding = get_padding(' ', dot - offset);
-            let s = format!("{}{}", pre_padding, s);
+            let s = format!("{pre_padding}{s}");
             get_string_with_len(&s, len)
         }
         None => get_string_with_len(s, len),
@@ -217,7 +217,7 @@ fn get_string_with_dot_and_len(s: &str, dot: usize, len: usize) -> String {
     match s.find('.') {
         Some(offset) => {
             let pre_padding = get_padding(' ', dot - offset);
-            let s = format!("{}{}", pre_padding, s);
+            let s = format!("{pre_padding}{s}");
             get_string_with_len(&s, len)
         }
         None => get_string_with_len(s, len),

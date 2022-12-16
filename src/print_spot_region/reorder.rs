@@ -3,14 +3,20 @@ use crate::print_spot_region::spot_region::SpotRegion;
 use aws_sdk_ec2::model::InstanceType;
 use std::collections::HashMap;
 
-pub(crate) fn reorder(regions: &[SpotRegion], instances: &[InstanceType]) -> (Vec<SpotRegion>, Vec<String>, Vec<f64>) {
+pub(crate) fn reorder(
+    regions: &[SpotRegion],
+    instances: &[InstanceType],
+) -> (Vec<SpotRegion>, Vec<String>, Vec<f64>) {
     let prices: HashMap<String, Option<f64>> = get_average_instance_prices(regions, instances);
 
     let mut reordered_instances = prices.iter().collect::<Vec<_>>();
 
     reordered_instances.sort_unstable_by(|a, b| a.1.partial_cmp(b.1).unwrap());
 
-    let mut reordered_instances = reordered_instances.iter().map(|i| i.0.clone()).collect::<Vec<String>>();
+    let mut reordered_instances = reordered_instances
+        .iter()
+        .map(|i| i.0.clone())
+        .collect::<Vec<String>>();
 
     // big in front
 
@@ -23,7 +29,10 @@ pub(crate) fn reorder(regions: &[SpotRegion], instances: &[InstanceType]) -> (Ve
     (reordered_regions, reordered_instances, price_changes)
 }
 
-fn extract_instance_data(instance: InstanceType, regions: &[SpotRegion]) -> Vec<(usize, Option<Instance>)> {
+fn extract_instance_data(
+    instance: InstanceType,
+    regions: &[SpotRegion],
+) -> Vec<(usize, Option<Instance>)> {
     let mut result: Vec<(usize, Option<Instance>)> = Vec::with_capacity(regions.len());
 
     // counter is row
@@ -39,7 +48,10 @@ fn extract_instance_data(instance: InstanceType, regions: &[SpotRegion]) -> Vec<
     result
 }
 
-fn find_completes_instance(regions: &[SpotRegion], instance_types: &[InstanceType]) -> InstanceType {
+fn find_completes_instance(
+    regions: &[SpotRegion],
+    instance_types: &[InstanceType],
+) -> InstanceType {
     let mut instances: HashMap<InstanceType, u32> = HashMap::new();
 
     for instance in instance_types {
@@ -88,7 +100,10 @@ fn reorder_regions(regions: &[SpotRegion], instances: &[InstanceType]) -> Vec<Sp
     reorder_data_by(&rows, regions)
 }
 
-fn get_average_instance_prices(regions: &[SpotRegion], instances: &[InstanceType]) -> HashMap<String, Option<f64>> {
+fn get_average_instance_prices(
+    regions: &[SpotRegion],
+    instances: &[InstanceType],
+) -> HashMap<String, Option<f64>> {
     let mut averages: HashMap<String, Option<f64>> = HashMap::new();
 
     for instance in instances {
@@ -113,7 +128,10 @@ fn get_average_instance_prices(regions: &[SpotRegion], instances: &[InstanceType
     averages
 }
 
-fn find_price_changes(instances: &[String], average_prices: &HashMap<String, Option<f64>>) -> Vec<f64> {
+fn find_price_changes(
+    instances: &[String],
+    average_prices: &HashMap<String, Option<f64>>,
+) -> Vec<f64> {
     let mut changes = Vec::with_capacity(instances.len());
 
     for index in 0..instances.len() - 1 {
@@ -124,7 +142,7 @@ fn find_price_changes(instances: &[String], average_prices: &HashMap<String, Opt
             if let Some(pt1) = p1 {
                 // has spot pricej
                 if *pt1 == 0.0 {
-                    println!("{} {}", i0, i1);
+                    println!("{i0} {i1}");
                     changes.push(0.0);
                 }
                 //} else {

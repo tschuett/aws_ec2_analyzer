@@ -14,9 +14,9 @@ use std::cmp::Ordering;
 
 fn get_nr_of_efas(info: &NetworkInfo) -> i32 {
     if let Some(efa_info) = info.efa_info() {
-        return efa_info.maximum_efa_interfaces().unwrap();
+        efa_info.maximum_efa_interfaces().unwrap()
     } else {
-        return 0;
+        0
     }
 }
 
@@ -136,7 +136,7 @@ impl Instance {
             network,
             ebs,
             gpus: gpus.to_vec(),
-            instance_storage: instance_storage.clone(),
+            instance_storage,
         }
     }
 
@@ -283,13 +283,13 @@ async fn collect(instances: &[InstanceType]) -> Vec<Instance> {
 
     for instance in instances {
         if let Ok(info) = describe_instance(&ec2, instance.clone()).await {
-            let instance = get_instance(&info, &instance);
+            let instance = get_instance(&info, instance);
             vec.push(instance);
         } else if let Ok(info) = describe_instance(&ec2_2, instance.clone()).await {
-            let instance = get_instance(&info, &instance);
+            let instance = get_instance(&info, instance);
             vec.push(instance);
         } else if let Ok(info) = describe_instance(&ec2_3, instance.clone()).await {
-            let instance = get_instance(&info, &instance);
+            let instance = get_instance(&info, instance);
             vec.push(instance);
         } else {
             println!("failed for {}", instance.as_str());
@@ -334,7 +334,7 @@ fn print(instances: &[Instance]) {
 
     println!();
 
-    println!("{}", get_string_with_len_and_padding("", 155, '-'));
+    println!("{}", get_string_with_len_and_padding("", 160, '-'));
 
     for instance in instances {
         print!("{} | ", get_string_with_dot_and_len(instance.name(), 6, 15));
