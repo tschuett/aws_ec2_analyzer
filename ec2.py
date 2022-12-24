@@ -14,7 +14,7 @@ REGIONS = ["us-east-1", "us-east-2", "us-west-2"]
 
 INSTANCES = ["c6in.32xlarge", "hpc6id.32xlarge", "hpc6a.48xlarge", "c7gn.16xlarge",
              "r7iz.32xlarge", "c6gn.16xlarge", "hpc7g.16xlarge", "c6gn.16xlarge",
-             "trn1.32xlarge", "p4de.24xlarge"]
+             "trn1.32xlarge", "p4de.24xlarge", "g5.48xlarge"]
 
 
 def describe_instance(instance: str) -> Dict:

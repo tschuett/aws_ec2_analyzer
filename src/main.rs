@@ -44,6 +44,7 @@ async fn main() -> Result<()> {
         //InstanceType::P4de24xlarge,
         //InstanceType::P4d24xlarge,
         //InstanceType::P3dn24xlarge,
+        //InstanceType::P216xlarge,
         //InstanceType::G4ad16xlarge,
         //InstanceType::G4dnMetal,
         //InstanceType::G5gMetal,
