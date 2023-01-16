@@ -18,5 +18,5 @@ aws-sdk-ec2 = "0.22.0"
 aws-sdk-pricing = "0.22.0"
 
 aws-config = "0.52.0"
-aws-types = "0.52.0"
+aws-types = "0.53.0"
 aws-smithy-types-convert = {version = "0.52.0", features = ["convert-chrono"] }
