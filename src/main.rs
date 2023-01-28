@@ -17,7 +17,7 @@ const REGIONS: &[&str] = &[
 
 #[tokio::main(flavor = "current_thread")]
 async fn main() -> Result<()> {
-    tracing_subscriber::fmt::init();
+    //tracing_subscriber::fmt::init();
 
     let INSTANCE_TYPES: &[InstanceType] = &[
         //InstanceType::C524xlarge,
@@ -26,6 +26,7 @@ async fn main() -> Result<()> {
         InstanceType::C6a48xlarge,
         InstanceType::C6g16xlarge,
         InstanceType::C6gn16xlarge,
+        InstanceType::C6in32xlarge,
         InstanceType::C7g16xlarge,
         //InstanceType::M524xlarge,
         //InstanceType::M5n24xlarge,
@@ -37,7 +38,7 @@ async fn main() -> Result<()> {
         //        InstanceType::C5Metal,
         //        InstanceType::C6iMetal,
         //        InstanceType::C6aMetal,
-        //        InstanceType::M5znMetal,
+        //        InstanceType::M5znMetal
         //        InstanceType::C5nMetal,
         //InstanceType::G54xlarge,
         //InstanceType::P4de24xlarge,
@@ -67,10 +68,8 @@ async fn main() -> Result<()> {
         //InstanceType::Unknown("inf2.48xlarge".to_string()),
         //InstanceType::Unknown("inf1.24xlarge".to_string()),
         //InstanceType::Inf124xlarge,
-        //InstanceType::C6in32xlarge,
         InstanceType::Hpc6id32xlarge,
         InstanceType::Hpc6a48xlarge,
-        InstanceType::from("c6in.32xlarge"),
         InstanceType::from("c7gn.16xlarge"),
         InstanceType::from("r7iz.32xlarge"),
         InstanceType::from("hpc7g.16xlarge"),
