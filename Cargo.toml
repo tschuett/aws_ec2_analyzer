@@ -10,7 +10,7 @@ tokio = { version = "1.26.0", features = ["macros", "rt"] }
 tokio-stream = "0.1.12"
 anyhow = "1.0.69"
 num-traits = "0.2.14"
-serde = { version = "1.0.152", features = ["derive"] }
+serde = { version = "1.0.155", features = ["derive"] }
 serde_json = "1.0.94"
 tracing-subscriber = "0.3.16"
 
