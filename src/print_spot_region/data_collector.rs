@@ -4,8 +4,8 @@ use crate::instance::Instance;
 use crate::pricing::Pricing;
 use crate::print_spot_region::spot_region::SpotRegion;
 use anyhow::Result;
-use aws_sdk_ec2::model::InstanceType;
-use aws_sdk_ec2::types::DateTime;
+use aws_sdk_ec2::primitives::DateTime;
+use aws_sdk_ec2::types::InstanceType;
 
 pub(super) struct DataCollector {
     region: String,
@@ -22,11 +22,18 @@ impl DataCollector {
         }
     }
 
-    pub(super) async fn get_region(&self, client: &aws_sdk_ec2::Client, pricing: &Pricing) -> Result<SpotRegion> {
+    pub(super) async fn get_region(
+        &self,
+        client: &aws_sdk_ec2::Client,
+        pricing: &Pricing,
+    ) -> Result<SpotRegion> {
         let mut region_data: SpotRegion = SpotRegion::new(&self.region);
 
         for instance in &self.instances {
-            if let Ok(spot_region) = self.get_zones(client, pricing, &self.zones, instance.clone()).await {
+            if let Ok(spot_region) = self
+                .get_zones(client, pricing, &self.zones, instance.clone())
+                .await
+            {
                 region_data.add(instance.as_str(), spot_region);
             }
         }
@@ -65,7 +72,9 @@ impl DataCollector {
         //    return Err(anyhow!("no entries found"));
         //}
 
-        let ondemand = pricing.get_ondemand_price(instance.as_str(), &self.region).await?;
+        let ondemand = pricing
+            .get_ondemand_price(instance.as_str(), &self.region)
+            .await?;
 
         let spot_region = Instance::new(&self.region, instance, &result_zones, ondemand);
 

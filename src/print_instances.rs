@@ -6,10 +6,10 @@ use crate::get_string_with_dot_and_len;
 use crate::get_string_with_len;
 use crate::get_string_with_len_and_padding;
 use anyhow::Result;
-use aws_sdk_ec2::model::ArchitectureType;
-use aws_sdk_ec2::model::InstanceType;
-use aws_sdk_ec2::model::InstanceTypeInfo;
-use aws_sdk_ec2::model::NetworkInfo;
+use aws_sdk_ec2::types::ArchitectureType;
+use aws_sdk_ec2::types::InstanceType;
+use aws_sdk_ec2::types::InstanceTypeInfo;
+use aws_sdk_ec2::types::NetworkInfo;
 use std::cmp::Ordering;
 
 fn get_nr_of_efas(info: &NetworkInfo) -> i32 {

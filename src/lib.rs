@@ -42,11 +42,14 @@ pub mod print_instances;
 mod availability_zone;
 mod instance;
 
-use aws_sdk_ec2::{
-    error::DescribeInstanceTypesError,
-    model::{InstanceType, InstanceTypeInfo},
-    types::SdkError,
-};
+use aws_sdk_ec2::error::SdkError;
+use aws_sdk_ec2::operation::describe_availability_zones::DescribeAvailabilityZonesError;
+use aws_sdk_ec2::operation::describe_instance_types::DescribeInstanceTypesError;
+use aws_sdk_ec2::operation::describe_spot_price_history::DescribeSpotPriceHistoryError;
+use aws_sdk_ec2::primitives::DateTime;
+use aws_sdk_ec2::types::Filter;
+use aws_sdk_ec2::types::InstanceType;
+use aws_sdk_ec2::types::InstanceTypeInfo;
 
 async fn describe_instance(
     client: &aws_sdk_ec2::Client,
@@ -76,8 +79,6 @@ pub async fn get_region_config(region: &str) -> aws_types::SdkConfig {
         .await
 }
 
-use aws_sdk_ec2::error::DescribeSpotPriceHistoryError;
-use aws_sdk_ec2::types::DateTime;
 use tokio_stream::StreamExt;
 
 async fn get_spot_price_history(
@@ -108,9 +109,6 @@ async fn get_spot_price_history(
 
     Ok(spot_prices)
 }
-
-use aws_sdk_ec2::error::DescribeAvailabilityZonesError;
-use aws_sdk_ec2::model::Filter;
 
 async fn get_zones(
     client: &aws_sdk_ec2::Client,

@@ -1,6 +1,6 @@
 use crate::instance::Instance;
 use crate::print_spot_region::spot_region::SpotRegion;
-use aws_sdk_ec2::model::InstanceType;
+use aws_sdk_ec2::types::InstanceType;
 use std::collections::HashMap;
 
 pub(crate) fn reorder(

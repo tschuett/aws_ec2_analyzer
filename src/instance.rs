@@ -1,5 +1,5 @@
 use crate::availability_zone::AvailabilityZone;
-use aws_sdk_ec2::model::InstanceType;
+use aws_sdk_ec2::types::InstanceType;
 
 pub(super) struct Instance {
     _region: String,
@@ -9,7 +9,12 @@ pub(super) struct Instance {
 }
 
 impl Instance {
-    pub(super) fn new(region: &str, _instance: InstanceType, zones: &[AvailabilityZone], ondemand: f64) -> Self {
+    pub(super) fn new(
+        region: &str,
+        _instance: InstanceType,
+        zones: &[AvailabilityZone],
+        ondemand: f64,
+    ) -> Self {
         let data = Self::process_zones(zones);
         Self {
             _region: region.to_string(),

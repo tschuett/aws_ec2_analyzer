@@ -1,10 +1,10 @@
 use anyhow::Result;
-use aws_sdk_ec2::{
-    client,
-    error::{DescribeInstanceTypesError, DescribeRegionsError},
-    model::{Filter, InstanceTypeInfo},
-    types::SdkError,
-};
+use aws_sdk_ec2::client;
+use aws_sdk_ec2::error::SdkError;
+use aws_sdk_ec2::operation::describe_instance_types::DescribeInstanceTypesError;
+use aws_sdk_ec2::operation::describe_regions::DescribeRegionsError;
+use aws_sdk_ec2::types::Filter;
+use aws_sdk_ec2::types::InstanceTypeInfo;
 use tokio_stream::StreamExt;
 
 #[derive(Debug)]
@@ -35,7 +35,9 @@ impl Ec2 {
     }
 
     /// get all instances with EFA support
-    pub async fn get_instance_types_efa(&self) -> Result<Vec<InstanceTypeInfo>, SdkError<DescribeInstanceTypesError>> {
+    pub async fn get_instance_types_efa(
+        &self,
+    ) -> Result<Vec<InstanceTypeInfo>, SdkError<DescribeInstanceTypesError>> {
         let filters = vec![
             Filter::builder()
                 .name("network-info.efa-supported")
@@ -73,7 +75,9 @@ impl Ec2 {
             .regions
             .unwrap_or_default()
             .into_iter()
-            .filter(|region| region.opt_in_status().as_ref().unwrap_or(&"") == &"opt-in-not-required")
+            .filter(|region| {
+                region.opt_in_status().as_ref().unwrap_or(&"") == &"opt-in-not-required"
+            })
             .filter(|region| region.region_name().is_some())
             .map(|r| r.region_name().unwrap().to_string())
             .collect::<Vec<_>>())

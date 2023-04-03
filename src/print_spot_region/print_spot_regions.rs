@@ -7,7 +7,7 @@ use crate::print_spot_region::printer::Printer;
 use crate::print_spot_region::reorder::reorder;
 use crate::print_spot_region::spot_region::SpotRegion;
 use anyhow::Result;
-use aws_sdk_ec2::model::InstanceType;
+use aws_sdk_ec2::types::InstanceType;
 
 /// print the Spot prices for an instance in all regions
 pub async fn print_spot_regions(

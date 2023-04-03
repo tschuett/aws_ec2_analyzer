@@ -5,7 +5,7 @@ use aws_ec2_analyzer::{ec2::Ec2, get_region_config, pricing::Pricing};
 //use aws_ec2_spot::print::print_spot_placement::print_spot_placement;
 //use aws_ec2_spot::print_spot_region::print_spot_regions::print_spot_regions;
 //use aws_ec2_analyzer::describe_instance_type_offerings;
-use aws_sdk_ec2::model::InstanceType;
+use aws_sdk_ec2::types::InstanceType;
 
 const REGIONS: &[&str] = &[
     "us-east-1",

@@ -1,11 +1,10 @@
 use crate::pricing::regions::region2region;
 use anyhow::{anyhow, Result};
-use aws_sdk_ec2::types::SdkError;
-use aws_sdk_pricing::{
-    client,
-    error::GetAttributeValuesError,
-    model::{Filter, FilterType},
-};
+use aws_sdk_pricing::client;
+use aws_sdk_pricing::error::SdkError;
+use aws_sdk_pricing::operation::get_attribute_values::GetAttributeValuesError;
+use aws_sdk_pricing::types::Filter;
+use aws_sdk_pricing::types::FilterType::TermMatch;
 use serde_json::Value;
 use tokio_stream::StreamExt;
 
@@ -156,37 +155,37 @@ impl Pricing {
         let location = region2region(region);
         vec![
             Filter::builder()
-                .set_type(Some(FilterType::TermMatch))
+                .set_type(Some(TermMatch))
                 .field("instanceType")
                 .value(instance)
                 .build(),
             Filter::builder()
-                .set_type(Some(FilterType::TermMatch))
+                .set_type(Some(TermMatch))
                 .field("location")
                 .value(location)
                 .build(),
             Filter::builder()
-                .set_type(Some(FilterType::TermMatch))
+                .set_type(Some(TermMatch))
                 .field("operatingSystem")
                 .value("Linux")
                 .build(),
             Filter::builder()
-                .set_type(Some(FilterType::TermMatch))
+                .set_type(Some(TermMatch))
                 .field("preInstalledSw")
                 .value("NA")
                 .build(),
             Filter::builder()
-                .set_type(Some(FilterType::TermMatch))
+                .set_type(Some(TermMatch))
                 .field("operation")
                 .value("RunInstances")
                 .build(),
             Filter::builder()
-                .set_type(Some(FilterType::TermMatch))
+                .set_type(Some(TermMatch))
                 .field("capacitystatus")
                 .value(capacity_status)
                 .build(),
             Filter::builder()
-                .set_type(Some(FilterType::TermMatch))
+                .set_type(Some(TermMatch))
                 .field("tenancy")
                 .value(tenancy)
                 .build(),
@@ -238,17 +237,17 @@ impl Pricing {
         let mut filters = self.get_common_filters(instance, region, "Used", "Dedicated");
         let mut remainder = vec![
             Filter::builder()
-                .set_type(Some(FilterType::TermMatch))
+                .set_type(Some(TermMatch))
                 .field("LeaseContractLength")
                 .value("3yr")
                 .build(),
             Filter::builder()
-                .set_type(Some(FilterType::TermMatch))
+                .set_type(Some(TermMatch))
                 .field("OfferingClass")
                 .value("standard")
                 .build(),
             Filter::builder()
-                .set_type(Some(FilterType::TermMatch))
+                .set_type(Some(TermMatch))
                 .field("PurchaseOption")
                 .value("All Upfront")
                 .build(),
