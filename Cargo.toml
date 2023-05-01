@@ -7,7 +7,7 @@ edition = "2021"
 
 [dependencies]
 tokio = { version = "1.27.0", features = ["macros", "rt"] }
-tokio-stream = "0.1.12"
+tokio-stream = "0.1.14"
 anyhow = "1.0.70"
 num-traits = "0.2.14"
 serde = { version = "1.0.160", features = ["derive"] }
