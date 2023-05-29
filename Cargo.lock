@@ -130,9 +130,9 @@ dependencies = [
 
 [[package]]
 name = "aws-sdk-pricing"
-version = "0.27.0"
+version = "0.28.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0914074eb0ea6a404744e3aeec35ff47390bbcf6bd11eb79f94ebc42865ad5a4"
+checksum = "2201033ea01666d6fb61436aa736c402dcfa17f7fbf169d4e4601c25bc595485"
 dependencies = [
  "aws-credential-types",
  "aws-endpoint",
