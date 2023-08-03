@@ -106,11 +106,20 @@ impl Printer {
     fn print_instances(&self, region: &SpotRegion) {
         for instance in &self.instances {
             if let Some(el) = region.find_instance(instance) {
-                print!(
-                    "  {} / {}  |",
-                    get_option_f64_with_len(el.get_average_price(), self.instance_width / 2 - 2),
-                    get_f64_with_len(el.get_ondemand_price(), self.instance_width / 2 - 2)
-                );
+                let budget = self.instance_width - 2 - 2 - 1; //4*` ` + 1*/
+                if budget % 2 == 1 {
+                    print!(
+                        "  {} / {}   |",
+                        get_option_f64_with_len(el.get_average_price(), budget / 2),
+                        get_f64_with_len(el.get_ondemand_price(), budget / 2)
+                    )
+                } else {
+                    print!(
+                        "  {} / {}  |",
+                        get_option_f64_with_len(el.get_average_price(), budget / 2),
+                        get_f64_with_len(el.get_ondemand_price(), budget / 2)
+                    )
+                }
             } else {
                 // no instance found
                 print!(" {} |", get_string_with_len("", self.instance_width));

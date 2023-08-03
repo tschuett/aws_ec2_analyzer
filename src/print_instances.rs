@@ -313,7 +313,7 @@ pub async fn print_instances(instances: &[InstanceType]) -> Result<()> {
 }
 
 const TOP_LINE: &[(&str, usize)] = &[
-    ("instance", 15),
+    ("instance", 17),
     ("arch", 8),
     ("cores", 8),
     ("memory", 8),
@@ -337,7 +337,7 @@ fn print(instances: &[Instance]) {
     println!("{}", get_string_with_len_and_padding("", 160, '-'));
 
     for instance in instances {
-        print!("{} | ", get_string_with_dot_and_len(instance.name(), 6, 15));
+        print!("{} | ", get_string_with_dot_and_len(instance.name(), 8, 17));
         print!("{} | ", get_string_with_len(instance.arch(), 8));
         print!("{} | ", get_integer_with_len(instance.cores(), 8));
         print!("{} | ", get_integer_with_len(instance.memory(), 8));

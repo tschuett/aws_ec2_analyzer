@@ -75,10 +75,15 @@ async fn main() -> Result<()> {
         InstanceType::from("r7iz.32xlarge"),
         InstanceType::from("hpc7g.16xlarge"),
         InstanceType::from("m7a.16xlarge"),
-        InstanceType::from("p5d.32xlarge"),
+        InstanceType::from("p5.48xlarge"),
+        InstanceType::from("m7i-flex.8xlarge"),
+        InstanceType::from("m7i.48xlarge"),
+        InstanceType::from("m7i.8xlarge"),
         InstanceType::C6g2xlarge,
         InstanceType::C7g2xlarge,
     ];
+
+    //         InstanceType::U24tb1112xlarge,
 
     let shared_config = aws_config::load_from_env().await;
 
