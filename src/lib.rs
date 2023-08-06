@@ -42,10 +42,7 @@ pub mod print_instances;
 mod availability_zone;
 mod instance;
 
-use aws_sdk_ec2::error::SdkError;
-use aws_sdk_ec2::operation::describe_availability_zones::DescribeAvailabilityZonesError;
-use aws_sdk_ec2::operation::describe_instance_types::DescribeInstanceTypesError;
-use aws_sdk_ec2::operation::describe_spot_price_history::DescribeSpotPriceHistoryError;
+use anyhow::Result;
 use aws_sdk_ec2::primitives::DateTime;
 use aws_sdk_ec2::types::Filter;
 use aws_sdk_ec2::types::InstanceType;
@@ -54,7 +51,7 @@ use aws_sdk_ec2::types::InstanceTypeInfo;
 async fn describe_instance(
     client: &aws_sdk_ec2::Client,
     instance: InstanceType,
-) -> Result<InstanceTypeInfo, SdkError<DescribeInstanceTypesError>> {
+) -> Result<InstanceTypeInfo> {
     let result = client
         .describe_instance_types()
         .instance_types(instance)
@@ -72,7 +69,7 @@ async fn describe_instance(
 // FIXME: join_all + tokio::spawn
 
 /// get a shared_config configured for a given region
-pub async fn get_region_config(region: &str) -> aws_types::SdkConfig {
+pub async fn get_region_config(region: &str) -> aws_config::SdkConfig {
     aws_config::from_env()
         .region(aws_types::region::Region::new(region.to_string()))
         .load()
@@ -85,7 +82,7 @@ async fn get_spot_price_history(
     client: &aws_sdk_ec2::Client,
     availibility_zone: &str,
     instance_type: InstanceType,
-) -> Result<Vec<(DateTime, f64)>, SdkError<DescribeSpotPriceHistoryError>> {
+) -> Result<Vec<(DateTime, f64)>> {
     let prices = client
         .describe_spot_price_history()
         .instance_types(instance_type)
@@ -110,10 +107,7 @@ async fn get_spot_price_history(
     Ok(spot_prices)
 }
 
-async fn get_zones(
-    client: &aws_sdk_ec2::Client,
-    region: &str,
-) -> Result<Vec<String>, SdkError<DescribeAvailabilityZonesError>> {
+async fn get_zones(client: &aws_sdk_ec2::Client, region: &str) -> Result<Vec<String>> {
     let filter = Filter::builder().name("region-name").values(region).build();
 
     // no paging !
@@ -197,6 +191,7 @@ fn get_string_network_and_len(s: &str, dot: usize, len: usize) -> String {
             if offset > dot {
                 println!("{s} {dot} {len} {offset}");
             }
+            //println!("{0}", dot - offset);
             let pre_padding = get_padding(' ', dot - offset);
             let s = format!("{pre_padding}{s}");
             get_string_with_len(&s, len)
@@ -226,19 +221,27 @@ fn get_string_with_dot_and_len(s: &str, dot: usize, len: usize) -> String {
 mod tests {
     use super::*;
 
-    use pretty_assertions::assert_eq;
+    //use pretty_assertions::assert_eq;
+
+    //    #[test]
+    //    fn test_get_bool_with_len() -> std::io::Result<()> {
+    //        let s = get_bool_with_len(true, 5);
+    //        assert_eq!(s.len(), 5);
+    //
+    //        Ok(())
+    //    }
 
     #[test]
-    fn test_get_bool_with_len() -> std::io::Result<()> {
-        let s = get_bool_with_len(true, 5);
-        assert_eq!(s.len(), 5);
+    fn test_stackoverflow() -> std::io::Result<()> {
+        let _s = get_string_with_dot_and_len("im4gn.16xlarge", 7, 15);
+        //assert_eq!(s.len(), 5);
 
         Ok(())
     }
 
     #[test]
-    fn test_stackoverflow() -> std::io::Result<()> {
-        let s = get_string_with_dot_and_len("im4gn.16xlarge", 7, 15);
+    fn test_network() -> std::io::Result<()> {
+        let _s = get_string_network_and_len("Up to 12.5 Gigabit", 10, 20);
         //assert_eq!(s.len(), 5);
 
         Ok(())

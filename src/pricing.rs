@@ -1,8 +1,6 @@
 use crate::pricing::regions::region2region;
 use anyhow::{anyhow, Result};
 use aws_sdk_pricing::client;
-use aws_sdk_pricing::error::SdkError;
-use aws_sdk_pricing::operation::get_attribute_values::GetAttributeValuesError;
 use aws_sdk_pricing::types::Filter;
 use aws_sdk_pricing::types::FilterType::TermMatch;
 use serde_json::Value;
@@ -57,9 +55,7 @@ impl Pricing {
     }
 
     /// get all regions in AWS Pricing convention
-    pub async fn get_regions(
-        &self,
-    ) -> std::result::Result<Vec<String>, SdkError<GetAttributeValuesError>> {
+    pub async fn get_regions(&self) -> Result<Vec<String>> {
         let values = self
             .0
             .get_attribute_values()

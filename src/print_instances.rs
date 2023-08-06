@@ -304,7 +304,7 @@ async fn collect(instances: &[InstanceType]) -> Vec<Instance> {
     vec
 }
 
-/// print finformation about EC2 instances
+/// print information about EC2 instances
 pub async fn print_instances(instances: &[InstanceType]) -> Result<()> {
     let instance_data = collect(instances).await;
     print(&instance_data);
@@ -343,7 +343,7 @@ fn print(instances: &[Instance]) {
         print!("{} | ", get_integer_with_len(instance.memory(), 8));
         print!(
             "{} | ",
-            get_string_network_and_len(&instance.network_performance(), 10, 20)
+            get_string_network_and_len(&instance.network_performance(), 12, 20)
         );
         print!("{} | ", get_integer_with_len(instance.get_efas(), 8));
         print!("{} | ", get_integer_with_len(instance.ebs(), 8));

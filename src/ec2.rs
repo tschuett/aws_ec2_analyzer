@@ -1,8 +1,5 @@
 use anyhow::Result;
 use aws_sdk_ec2::client;
-use aws_sdk_ec2::error::SdkError;
-use aws_sdk_ec2::operation::describe_instance_types::DescribeInstanceTypesError;
-use aws_sdk_ec2::operation::describe_regions::DescribeRegionsError;
 use aws_sdk_ec2::types::Filter;
 use aws_sdk_ec2::types::InstanceTypeInfo;
 use tokio_stream::StreamExt;
@@ -19,9 +16,7 @@ impl Ec2 {
 
     #[allow(unused)]
     /// get all current types of instances
-    pub(crate) async fn get_instance_types(
-        &self,
-    ) -> Result<Vec<InstanceTypeInfo>, SdkError<DescribeInstanceTypesError>> {
+    pub(crate) async fn get_instance_types(&self) -> Result<Vec<InstanceTypeInfo>> {
         let instances = self
             .0
             .describe_instance_types()
@@ -35,9 +30,7 @@ impl Ec2 {
     }
 
     /// get all instances with EFA support
-    pub async fn get_instance_types_efa(
-        &self,
-    ) -> Result<Vec<InstanceTypeInfo>, SdkError<DescribeInstanceTypesError>> {
+    pub async fn get_instance_types_efa(&self) -> Result<Vec<InstanceTypeInfo>> {
         let filters = vec![
             Filter::builder()
                 .name("network-info.efa-supported")
@@ -66,7 +59,7 @@ impl Ec2 {
         Ok(instances)
     }
 
-    pub(crate) async fn get_regions(&self) -> Result<Vec<String>, SdkError<DescribeRegionsError>> {
+    pub(crate) async fn get_regions(&self) -> Result<Vec<String>> {
         let result = self.0.describe_regions().all_regions(true).send().await?;
 
         // no paging !
