@@ -334,7 +334,7 @@ fn print(instances: &[Instance]) {
 
     println!();
 
-    println!("{}", get_string_with_len_and_padding("", 160, '-'));
+    println!("{}", get_string_with_len_and_padding("", 162, '-'));
 
     for instance in instances {
         print!("{} | ", get_string_with_dot_and_len(instance.name(), 8, 17));

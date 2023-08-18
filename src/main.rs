@@ -41,8 +41,8 @@ async fn main() -> Result<()> {
         //        InstanceType::M5znMetal
         //        InstanceType::C5nMetal,
         //InstanceType::G54xlarge,
-        InstanceType::P4de24xlarge,
-        //InstanceType::P4d24xlarge,
+        //InstanceType::P4de24xlarge,
+        InstanceType::P4d24xlarge,
         //InstanceType::P3dn24xlarge,
         //InstanceType::P216xlarge,
         //InstanceType::G4ad16xlarge,
@@ -77,13 +77,14 @@ async fn main() -> Result<()> {
         //        InstanceType::from("c7gn.16xlarge"),
         InstanceType::from("r7iz.32xlarge"),
         //InstanceType::from("hpc7g.16xlarge"),
-        InstanceType::from("m7a.16xlarge"),
+        InstanceType::from("m7a.48xlarge"),
         InstanceType::from("p5.48xlarge"),
-        InstanceType::from("m7i-flex.8xlarge"),
+        //InstanceType::from("m7i-flex.8xlarge"),
         InstanceType::from("m7i.48xlarge"),
-        InstanceType::from("m7i.8xlarge"),
+        InstanceType::from("hpc7a.96xlarge"),
         InstanceType::C6g2xlarge,
         InstanceType::C7g2xlarge,
+        InstanceType::P3dn24xlarge,
     ];
 
     //         InstanceType::U24tb1112xlarge,
