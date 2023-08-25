@@ -1,4 +1,4 @@
- ![MSRV](https://img.shields.io/badge/msrv-1.71.1-red)
+ ![MSRV](https://img.shields.io/badge/msrv-1.72.0-red)
 # aws_ec2_analyzer
 
 
