@@ -77,7 +77,7 @@ async fn main() -> Result<()> {
         InstanceType::P548xlarge,
         InstanceType::M7i48xlarge,
         InstanceType::C7i48xlarge,
-        InstanceType::from("c7a.48xlarge"),
+        InstanceType::C7a48xlarge,
         InstanceType::Hpc7a96xlarge,
         InstanceType::P3dn24xlarge,
     ];
