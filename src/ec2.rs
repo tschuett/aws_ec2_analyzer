@@ -2,7 +2,6 @@ use anyhow::Result;
 use aws_sdk_ec2::client;
 use aws_sdk_ec2::types::Filter;
 use aws_sdk_ec2::types::InstanceTypeInfo;
-use tokio_stream::StreamExt;
 
 #[derive(Debug)]
 /// a wrapper around an AWS EC2 client

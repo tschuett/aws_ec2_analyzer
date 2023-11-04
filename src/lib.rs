@@ -58,12 +58,7 @@ async fn describe_instance(
         .send()
         .await?;
 
-    return Ok(result
-        .instance_types()
-        .unwrap_or_default()
-        .first()
-        .unwrap()
-        .clone());
+    return Ok(result.instance_types().first().unwrap().clone());
 }
 
 // FIXME: join_all + tokio::spawn
@@ -75,8 +70,6 @@ pub async fn get_region_config(region: &str) -> aws_config::SdkConfig {
         .load()
         .await
 }
-
-use tokio_stream::StreamExt;
 
 async fn get_spot_price_history(
     client: &aws_sdk_ec2::Client,

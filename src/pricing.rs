@@ -4,7 +4,6 @@ use aws_sdk_pricing::client;
 use aws_sdk_pricing::types::Filter;
 use aws_sdk_pricing::types::FilterType::TermMatch;
 use serde_json::Value;
-use tokio_stream::StreamExt;
 
 mod regions {
     // FIXME may change
@@ -69,7 +68,7 @@ impl Pricing {
         let mut regions: Vec<String> = Vec::new();
 
         for region in values {
-            for value in region.attribute_values().unwrap_or_default() {
+            for value in region.attribute_values() {
                 regions.push(value.value().unwrap_or_default().to_string())
             }
         }
@@ -104,7 +103,7 @@ impl Pricing {
         let mut products = Vec::new();
 
         for page in values {
-            for product in page.price_list().unwrap_or_default() {
+            for product in page.price_list() {
                 products.push(product.clone());
             }
         }
@@ -154,37 +153,44 @@ impl Pricing {
                 .set_type(Some(TermMatch))
                 .field("instanceType")
                 .value(instance)
-                .build(),
+                .build()
+                .unwrap(),
             Filter::builder()
                 .set_type(Some(TermMatch))
                 .field("location")
                 .value(location)
-                .build(),
+                .build()
+                .unwrap(),
             Filter::builder()
                 .set_type(Some(TermMatch))
                 .field("operatingSystem")
                 .value("Linux")
-                .build(),
+                .build()
+                .unwrap(),
             Filter::builder()
                 .set_type(Some(TermMatch))
                 .field("preInstalledSw")
                 .value("NA")
-                .build(),
+                .build()
+                .unwrap(),
             Filter::builder()
                 .set_type(Some(TermMatch))
                 .field("operation")
                 .value("RunInstances")
-                .build(),
+                .build()
+                .unwrap(),
             Filter::builder()
                 .set_type(Some(TermMatch))
                 .field("capacitystatus")
                 .value(capacity_status)
-                .build(),
+                .build()
+                .unwrap(),
             Filter::builder()
                 .set_type(Some(TermMatch))
                 .field("tenancy")
                 .value(tenancy)
-                .build(),
+                .build()
+                .unwrap(),
         ]
     }
     fn get_ondemand_filters(&self, instance: &str, region: &str) -> Vec<Filter> {
@@ -236,17 +242,20 @@ impl Pricing {
                 .set_type(Some(TermMatch))
                 .field("LeaseContractLength")
                 .value("3yr")
-                .build(),
+                .build()
+                .unwrap(),
             Filter::builder()
                 .set_type(Some(TermMatch))
                 .field("OfferingClass")
                 .value("standard")
-                .build(),
+                .build()
+                .unwrap(),
             Filter::builder()
                 .set_type(Some(TermMatch))
                 .field("PurchaseOption")
                 .value("All Upfront")
-                .build(),
+                .build()
+                .unwrap(),
         ];
         filters.append(&mut remainder);
         filters
@@ -321,7 +330,7 @@ impl Pricing {
         let mut products: Vec<String> = Vec::new();
 
         for product in values {
-            for item in product.price_list().unwrap_or_default() {
+            for item in product.price_list() {
                 products.push(item.clone());
             }
         }
@@ -360,10 +369,6 @@ impl Pricing {
 
 fn _print_filters(filters: &[Filter]) {
     for filter in filters {
-        println!(
-            "{} = {}",
-            filter.field.as_ref().unwrap(),
-            filter.value.as_ref().unwrap()
-        );
+        println!("{} = {}", filter.field, filter.value);
     }
 }

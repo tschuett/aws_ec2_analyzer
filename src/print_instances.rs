@@ -215,23 +215,16 @@ impl PartialEq for Instance {
 impl Eq for Instance {}
 
 fn get_instance(info: &InstanceTypeInfo, instance: &InstanceType) -> Instance {
-    let arch = get_architecture(
-        info.processor_info()
-            .unwrap()
-            .supported_architectures()
-            .unwrap(),
-    );
+    let arch = get_architecture(info.processor_info().unwrap().supported_architectures());
     let mut gpu_vec = Vec::new();
     if let Some(gpu_info) = info.gpu_info() {
-        if let Some(gpus) = gpu_info.gpus() {
-            for gpu in gpus {
-                gpu_vec.push(Gpu::new(
-                    gpu.manufacturer().unwrap(),
-                    gpu.name().unwrap(),
-                    gpu.count().unwrap(),
-                    gpu.memory_info().unwrap().size_in_mi_b().unwrap() / 1024,
-                ));
-            }
+        for gpu in gpu_info.gpus() {
+            gpu_vec.push(Gpu::new(
+                gpu.manufacturer().unwrap(),
+                gpu.name().unwrap(),
+                gpu.count().unwrap(),
+                gpu.memory_info().unwrap().size_in_mib().unwrap() / 1024,
+            ));
         }
     }
 
@@ -246,7 +239,7 @@ fn get_instance(info: &InstanceTypeInfo, instance: &InstanceType) -> Instance {
         instance.clone(),
         &arch,
         info.v_cpu_info().unwrap().default_cores().unwrap(),
-        info.memory_info().unwrap().size_in_mi_b().unwrap() / 1024,
+        info.memory_info().unwrap().size_in_mib().unwrap() / 1024,
     );
 
     let network = Network::new(
