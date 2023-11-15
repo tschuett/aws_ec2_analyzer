@@ -59,20 +59,76 @@ impl Ec2 {
     }
 
     pub(crate) async fn get_regions(&self) -> Result<Vec<String>> {
-        let result = self.0.describe_regions().all_regions(true).send().await?;
+        //let result = self.0.describe_regions().all_regions(true).send().await?;
 
         // no paging !
 
-        Ok(result
-            .regions
-            .unwrap_or_default()
-            .into_iter()
-            .filter(|region| {
-                region.opt_in_status().as_ref().unwrap_or(&"") == &"opt-in-not-required"
-            })
-            .filter(|region| region.region_name().is_some())
-            .map(|r| r.region_name().unwrap().to_string())
-            .collect::<Vec<_>>())
+        let _regions = vec![
+            "Africa (Cape Town)",
+            "Asia Pacific (Hong Kong)",
+            "Asia Pacific (Melbourne)",
+            "Europe (Zurich)",
+            "Europe (Milan)",
+            "Europe (Spain)",
+            "Israel (Tel Aviv)",
+            "Asia Pacific (Tokyo)",
+            "Asia Pacific (Seoul)",
+            "Asia Pacific (Osaka)",
+            "Asia Pacific (Mumbai)",
+            "Asia Pacific (Singapore)",
+            "Asia Pacific (Sydney)",
+            "Canada (Central",
+            "Europa (Central)",
+            "Europa (Frankfurt)",
+            "Europa (Stockholm)",
+            "Europa (Ireland)",
+            "Europa (London)",
+            "Europa (Paris)",
+            "South America (São Paulo)",
+            "US East (N. Virginia)",
+            "US East (Ohio)",
+            "US West (N. California)",
+            "US West (Oregon)",
+        ];
+
+        let codes: Vec<String> = vec![
+            "af-south-1".to_string(),
+            "ap-east-1".to_string(),
+            "eu-central-2".to_string(),
+            "eu-south-1".to_string(),
+            //"eu-south-2".to_string(),
+            "il-central-1".to_string(),
+            "ap-northeast-1".to_string(),
+            //"ap-northeast-4".to_string(),
+            "ap-northeast-3".to_string(),
+            "ap-south-1".to_string(),
+            "ap-southeast-1".to_string(),
+            "ap-southeast-2".to_string(),
+            "ca-central-1".to_string(),
+            "eu-central-1".to_string(),
+            "eu-north-1".to_string(),
+            "eu-west-1".to_string(),
+            "eu-west-2".to_string(),
+            "eu-west-3".to_string(),
+            "sa-east-1".to_string(),
+            "us-east-1".to_string(),
+            "us-east-2".to_string(),
+            "us-west-1".to_string(),
+            "us-west-2".to_string(),
+        ];
+
+        Ok(codes)
+
+        //        Ok(result
+        //            .regions
+        //            .unwrap_or_default()
+        //            .into_iter()
+        //            .filter(|region| {
+        //                region.opt_in_status().as_ref().unwrap_or(&"") == &"opt-in-not-required"
+        //            })
+        //            .filter(|region| region.region_name().is_some())
+        //            .map(|r| r.region_name().unwrap().to_string())
+        //            .collect::<Vec<_>>())
     }
 
     //    #[allow(unused)]

@@ -1,5 +1,6 @@
 use anyhow::Result;
 use aws_ec2_analyzer::{ec2::Ec2, get_region_config, pricing::Pricing};
+
 //print_ondemand_region
 //use aws_sdk_ec2::model::InstanceType;
 //use aws_ec2_spot::print::print_spot_placement::print_spot_placement;
@@ -68,10 +69,10 @@ const INSTANCE_TYPES: &[InstanceType] = &[
     InstanceType::Hpc6a48xlarge,
     InstanceType::C7gn16xlarge,
     InstanceType::Hpc7g16xlarge,
-    InstanceType::R7iz32xlarge,
-    InstanceType::M7a48xlarge,
+    //InstanceType::R7iz32xlarge,
+    //InstanceType::M7a48xlarge,
     InstanceType::P548xlarge,
-    InstanceType::M7i48xlarge,
+    //InstanceType::M7i48xlarge,
     InstanceType::C7i48xlarge,
     InstanceType::C7a48xlarge,
     InstanceType::Hpc7a96xlarge,
