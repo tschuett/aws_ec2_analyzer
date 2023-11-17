@@ -43,6 +43,7 @@ mod availability_zone;
 mod instance;
 
 use anyhow::Result;
+use aws_config;
 use aws_sdk_ec2::primitives::DateTime;
 use aws_sdk_ec2::types::Filter;
 use aws_sdk_ec2::types::InstanceType;

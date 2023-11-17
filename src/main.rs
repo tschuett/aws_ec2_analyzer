@@ -1,4 +1,5 @@
 use anyhow::Result;
+use aws_config::BehaviorVersion;
 use aws_ec2_analyzer::{ec2::Ec2, get_region_config, pricing::Pricing};
 
 //print_ondemand_region
@@ -85,7 +86,7 @@ async fn main() -> Result<()> {
 
     //         InstanceType::U24tb1112xlarge,
 
-    let shared_config = aws_config::load_from_env().await;
+    let shared_config = aws_config::load_defaults(BehaviorVersion::v2023_11_09()).await;
 
     let ec2_client = aws_sdk_ec2::Client::new(&shared_config);
 
