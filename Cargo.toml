@@ -19,5 +19,5 @@ aws-sdk-ec2 = "0.39.1"
 aws-sdk-pricing = "0.39.0"
 
 aws-config = { version = "1.0.0", features = ["behavior-version-latest"] }
-aws-types = "1.0.0"
+aws-types = "1.0.1"
 aws-smithy-types-convert = {version = "0.60.0", features = ["convert-chrono"] }
