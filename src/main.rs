@@ -32,7 +32,7 @@ const INSTANCE_TYPES: &[InstanceType] = &[
     //InstanceType::M6a48xlarge,
     //InstanceType::M6g16xlarge,
     // accelerator
-    InstanceType::G548xlarge,
+    //InstanceType::G548xlarge,
     //        InstanceType::C5Metal,
     //        InstanceType::C6iMetal,
     //        InstanceType::C6aMetal,
@@ -40,7 +40,7 @@ const INSTANCE_TYPES: &[InstanceType] = &[
     //        InstanceType::C5nMetal,
     //InstanceType::G54xlarge,
     //InstanceType::P4de24xlarge,
-    InstanceType::P4d24xlarge,
+    //InstanceType::P4d24xlarge,
     //InstanceType::P3dn24xlarge,
     //InstanceType::P216xlarge,
     //InstanceType::G4ad16xlarge,
@@ -72,12 +72,12 @@ const INSTANCE_TYPES: &[InstanceType] = &[
     InstanceType::Hpc7g16xlarge,
     //InstanceType::R7iz32xlarge,
     //InstanceType::M7a48xlarge,
-    InstanceType::P548xlarge,
+    //InstanceType::P548xlarge,
     //InstanceType::M7i48xlarge,
     InstanceType::C7i48xlarge,
     InstanceType::C7a48xlarge,
     InstanceType::Hpc7a96xlarge,
-    InstanceType::P3dn24xlarge,
+    //InstanceType::P3dn24xlarge,
 ];
 
 #[tokio::main(flavor = "current_thread")]
