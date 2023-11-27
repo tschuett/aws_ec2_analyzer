@@ -44,6 +44,7 @@ mod instance;
 
 use anyhow::Result;
 use aws_config;
+use aws_config::BehaviorVersion;
 use aws_sdk_ec2::primitives::DateTime;
 use aws_sdk_ec2::types::Filter;
 use aws_sdk_ec2::types::InstanceType;
@@ -66,7 +67,7 @@ async fn describe_instance(
 
 /// get a shared_config configured for a given region
 pub async fn get_region_config(region: &str) -> aws_config::SdkConfig {
-    aws_config::from_env()
+    aws_config::defaults(BehaviorVersion::v2023_11_09())
         .region(aws_types::region::Region::new(region.to_string()))
         .load()
         .await
