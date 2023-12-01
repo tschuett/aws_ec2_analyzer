@@ -120,9 +120,9 @@ dependencies = [
 
 [[package]]
 name = "aws-sdk-ec2"
-version = "1.2.0"
+version = "1.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "88111ec31c6a3b9ed890f345b063bc2c76b49897e0c4601f6b1350c95d8d96d6"
+checksum = "0e3c8f50ef601c7c38da0319262760a7bc15efa25cb805e6a837818bbf77c4f9"
 dependencies = [
  "aws-credential-types",
  "aws-http",
@@ -144,9 +144,9 @@ dependencies = [
 
 [[package]]
 name = "aws-sdk-pricing"
-version = "1.2.0"
+version = "1.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "035fe052bd7f14ecf8cea728662b2cee3b1e46c97d1ed4bbb22c14281ccaf63a"
+checksum = "0ef9aecd402d5f5fbefdc3607ee7bf690cc00c86b02ac74d9307d7278eff3336"
 dependencies = [
  "aws-credential-types",
  "aws-http",

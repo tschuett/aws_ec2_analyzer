@@ -46,8 +46,7 @@ def main() -> int:
     """Invoke The main function."""
     for instance_type in ["hpc6id.32xlarge", "hpc6a.48xlarge",
                           "c7gn.16xlarge", "hpc7g.16xlarge",
-                          "m7a.16xlarge", "p5.48xlarge",
-                          "r7iz.32xlarge"]:
+                          "r8g.48xlarge"]:
         print_instance(instance_type)
 
     return 0
