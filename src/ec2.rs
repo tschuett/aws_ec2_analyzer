@@ -105,6 +105,7 @@ impl Ec2 {
             "ap-southeast-1".to_string(),
             "ap-southeast-2".to_string(),
             "ca-central-1".to_string(),
+            //            "ca-west-1".to_string(),
             "eu-central-1".to_string(),
             "eu-north-1".to_string(),
             "eu-west-1".to_string(),

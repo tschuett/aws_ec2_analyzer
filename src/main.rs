@@ -18,7 +18,6 @@ const REGIONS: &[&str] = &[
 ];
 
 const INSTANCE_TYPES: &[InstanceType] = &[
-    //InstanceType::C524xlarge,
     //InstanceType::C5n18xlarge,
     InstanceType::C6i32xlarge,
     InstanceType::C6a48xlarge,
