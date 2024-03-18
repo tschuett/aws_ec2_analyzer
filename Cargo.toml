@@ -20,7 +20,7 @@ aws-sdk-pricing = "1.15.0"
 
 aws-config = "1.1.6"
 aws-types = "1.1.6"
-aws-smithy-types-convert = {version = "0.60.5", features = ["convert-chrono"] }
+aws-smithy-types-convert = {version = "0.60.8", features = ["convert-chrono"] }
 
 
 [profile.release]
