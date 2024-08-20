@@ -59,6 +59,8 @@ const INSTANCE_TYPES: &[InstanceType] = &[
     //InstanceType::R6a48xlarge,
     //InstanceType::R7a48xlarge,
     //InstanceType::R7i48xlarge,
+    InstanceType::R8g48xlarge,
+    // r8g.48xlarge
     // storage
     //InstanceType::Im4gn16xlarge,
     //InstanceType::I3en24xlarge,
