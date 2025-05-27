@@ -25,6 +25,7 @@ const INSTANCE_TYPES: &[InstanceType] = &[
     //InstanceType::C6gn16xlarge,
     //InstanceType::C6in32xlarge,
     InstanceType::C7g16xlarge,
+    InstanceType::C8g48xlarge,
     //InstanceType::M524xlarge,
     //InstanceType::M5n24xlarge,
     //InstanceType::M6i32xlarge,
@@ -59,9 +60,10 @@ const INSTANCE_TYPES: &[InstanceType] = &[
     //InstanceType::R6a48xlarge,
     //InstanceType::R7a48xlarge,
     //InstanceType::R7i48xlarge,
-    InstanceType::R8g48xlarge,
+    //InstanceType::R8g48xlarge,
     // r8g.48xlarge
     // storage
+    InstanceType::I7ie48xlarge,
     //InstanceType::Im4gn16xlarge,
     //InstanceType::I3en24xlarge,
     //InstanceType::I4i32xlarge,
@@ -89,7 +91,7 @@ async fn main() -> Result<()> {
 
     //         InstanceType::U24tb1112xlarge,
 
-    let shared_config = aws_config::load_defaults(BehaviorVersion::v2024_03_28()).await;
+    let shared_config = aws_config::load_defaults(BehaviorVersion::v2025_01_17()).await;
 
     let ec2_client = aws_sdk_ec2::Client::new(&shared_config);
 
