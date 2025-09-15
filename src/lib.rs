@@ -67,7 +67,7 @@ async fn describe_instance(
 
 /// get a shared_config configured for a given region
 pub async fn get_region_config(region: &str) -> aws_config::SdkConfig {
-    aws_config::defaults(BehaviorVersion::v2025_01_17())
+    aws_config::defaults(BehaviorVersion::v2025_08_07())
         .region(aws_types::region::Region::new(region.to_string()))
         .load()
         .await
