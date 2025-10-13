@@ -135,9 +135,9 @@ dependencies = [
 
 [[package]]
 name = "aws-sdk-ec2"
-version = "1.171.0"
+version = "1.172.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0cc9763956b4fa7baba55414db830349eaaf0a94ab809f14a14ba466ecb7045c"
+checksum = "e64e82faa945cee1d97c8c0239988a4d924d9b29d1b604ad97ded7c8683fbbce"
 dependencies = [
  "aws-credential-types",
  "aws-runtime",
@@ -348,9 +348,9 @@ dependencies = [
 
 [[package]]
 name = "aws-smithy-query"
-version = "0.60.7"
+version = "0.60.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f2fbd61ceb3fe8a1cb7352e42689cec5335833cd9f94103a61e98f9bb61c64bb"
+checksum = "d28a63441360c477465f80c7abac3b9c4d075ca638f982e605b7dc2a2c7156c9"
 dependencies = [
  "aws-smithy-types",
  "urlencoding",
@@ -435,9 +435,9 @@ dependencies = [
 
 [[package]]
 name = "aws-smithy-xml"
-version = "0.60.10"
+version = "0.60.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3db87b96cb1b16c024980f133968d52882ca0daaee3a086c6decc500f6c99728"
+checksum = "e9c34127e8c624bc2999f3b657e749c1393bedc9cd97b92a804db8ced4d2e163"
 dependencies = [
  "xmlparser",
 ]
