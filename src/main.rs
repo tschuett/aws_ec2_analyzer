@@ -30,7 +30,7 @@ const INSTANCE_TYPES: &[InstanceType] = &[
     //InstanceType::M5n24xlarge,
     //InstanceType::M6i32xlarge,
     //InstanceType::M6a48xlarge,
-    //InstanceType::M6g16xlarge,
+    InstanceType::M9g48xlarge,
     // accelerator
     //InstanceType::G548xlarge,
     //        InstanceType::C5Metal,
